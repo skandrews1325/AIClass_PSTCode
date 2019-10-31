@@ -36,12 +36,12 @@ public class Node<T> {
 		int start_char = node.getTokenSeq().size() - tokenSequence.size(); //the starting element for subList
 		int last_char = node.getTokenSeq().size(); //the end/last element for subList
 		
-		System.out.println( "node.getTokenSeq().size() " + tokenSequence.size());
-		System.out.println( "tokenSequence.size(): " + node.getTokenSeq().size());
+//		System.out.println( "node.getTokenSeq().size() " + tokenSequence.size());
+//		System.out.println( "tokenSequence.size(): " + node.getTokenSeq().size());
 
 		ArrayList<T> token = node.getTokenSeq();
 		ArrayList<T> testSeq = new ArrayList<T>(token.subList(start_char, last_char));
-		System.out.println("testSeq: " + testSeq);
+//		System.out.println("testSeq: " + testSeq);
 //		System.out.println("our node seq: " + tokenSequence)
 		
 		return tokenSequence.equals(testSeq);
@@ -76,7 +76,7 @@ public class Node<T> {
 	
 	void print() { //print the token sequence
 		//for each node in the children (call node.print(1))
-		
+		System.out.println(tokenSequence);
 		for (int i = 0; i < children.size(); i++) {
 			children.get(i).print(1);
 		}
@@ -85,7 +85,7 @@ public class Node<T> {
 	void print(int numSpacesBefore) {
 		
 		for (int i = 1; i < numSpacesBefore; i++) {
-			System.out.print("  ");
+			System.out.print("   ");
 		}
 		
 		System.out.print("-->");

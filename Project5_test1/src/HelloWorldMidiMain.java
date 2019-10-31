@@ -7,7 +7,7 @@
  * 
  */
 
-//last edited: Oct 29 2019
+//last edited: Oct 31 2019
 
 import processing.core.*;
 
@@ -62,7 +62,7 @@ public class HelloWorldMidiMain extends PApplet {
 
 	// setting the window size
 	public void settings() {
-		size(800, 500);
+		size(900, 500);
 
 	}
 
@@ -115,7 +115,7 @@ public class HelloWorldMidiMain extends PApplet {
 		
 		pst_string_node1.train(testList1);
 		pst_string_node1.print();
-//		pst_pitch.train(midiNotes.getPitchArray());
+		pst_pitch.train(midiNotes.getPitchArray());
 		pst_string_node2.train(testList2);
 		pst_string_node3.train(testList3);
 
@@ -163,13 +163,15 @@ public class HelloWorldMidiMain extends PApplet {
 		println(" ");
 	}
 
-	/*
-	 * public void unit_test_MaryPST_proj5() {
-	 * println("------------------------------");
-	 * println("Mary Had a Little Lamb: PST L=3");
-	 * println("------------------------------"); pst_pitch.print(); println(" ");
-	 * }
-	 */
+	
+	public void unit_test_MaryPST_proj5() {
+	  println("------------------------------");
+	  println("Mary Had a Little Lamb: PST L=3");
+	  println("------------------------------"); 
+	  pst_pitch.print(); 
+	  println(" ");
+	}
+	 
 
 
 	// Unit test 1 methods
@@ -356,7 +358,7 @@ public class HelloWorldMidiMain extends PApplet {
 		}
 		if (key == 'g') {
 
-			//unit_test_MaryPST_proj5();
+			unit_test_MaryPST_proj5();
 
 		}
 	}

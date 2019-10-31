@@ -25,13 +25,13 @@ public class Tree<T> extends Node { // since the Tree is tied in with node (migh
 
 	void train(ArrayList input) {// (she didn't set anything in here equal to each other)
 		for (int i = 1; i <= L; i++) {// i refers to the current order num
-			for (int j = i - 1; j < input.size() - L - 1; j++) {// j is index into the input (each element in the input)
+			for (int j = 0; j < input.size() - (i-1); j++) {// j is index into the input (each element in the input)
 				int start_elem = j;
 				int last_elem = j+i;
 				
 				ArrayList<T> curSequence = new ArrayList<T>(input.subList(start_elem, last_elem));
 				
-				//System.out.println("items in curSequence: " + curSequence);
+				System.out.println("items in curSequence: " + curSequence);
 				
 				// create a new node w/ the current sequence, theNewNode
 				Node<T> theNewNode = new Node<T>();
