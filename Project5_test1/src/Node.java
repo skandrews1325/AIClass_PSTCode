@@ -107,7 +107,7 @@ public class Node<T> {
 		totalTokens = tokenSequence.size();
 		float emp = (count / (float)(totalTokens - (tokenSequence.size() - 1))); //emp is the Empirical Prob (based on the equation in the lect sheet)
 		
-		
+		System.out.println("current token sequence (in pMinElim): " + tokenSequence);
 		//2. shouldRemove = empirical prob of the token sequence < pMin (need to make sure the " " is NOT eliminated!!)
 		//boolean shouldRemove = emp < pMin && !(tokenSequence.size()==0); //(note to self in morning: use the tokenSequence.size()==0 to make an exception for the empty string!)
 		
@@ -119,8 +119,12 @@ public class Node<T> {
 			//if they return true, we should remove them
 			if (!shouldRemove) { //(note to self, might want to make this initially false, so the ! makes more sense given the name)
 				children.remove(i); //(this is just a guess, need to go back and iron out the parentheses!!) 
+				//System.out.println("current children left (after remove): " + children);
 			}
+			
 		}
+		
+		System.out.println("modified array: " + tokenSequence);
 		
 
 		//4. return (putting this here so eclipse can calm down)

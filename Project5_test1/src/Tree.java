@@ -48,7 +48,7 @@ public class Tree<T> extends Node { // since the Tree is tied in with node (migh
 			}
 		}
 		totalInputTokens += input.size();
-		//root.pMinElimination(totalInputTokens, pMin);
+		root.pMinElimination(totalInputTokens, pMin);
 
 	}
 

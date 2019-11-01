@@ -7,7 +7,7 @@
  * 
  */
 
-//last edited: Oct 31 2019
+//last edited: Nov 1, 2019
 
 import processing.core.*;
 
@@ -116,10 +116,10 @@ public class HelloWorldMidiMain extends PApplet {
 
 		
 		pst_string_node1.train(testList1);
-		pst_string_node1.print();
-		pst_pitch.train(midiNotes.getPitchArray());
-		pst_string_node2.train(testList2);
-		pst_string_node3.train(testList3);
+		pst_string_node1.print(); //(for debugging purposes)
+//		pst_pitch.train(midiNotes.getPitchArray());
+//		pst_string_node2.train(testList2);
+//		pst_string_node3.train(testList3);
 
 		player = new MelodyPlayer(this, 100.0f);
 
