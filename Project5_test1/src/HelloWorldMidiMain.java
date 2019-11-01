@@ -43,16 +43,18 @@ public class HelloWorldMidiMain extends PApplet {
 	MarkovOrderNGenerator<Double> marN_rhythm = new MarkovOrderNGenerator(3);
 
 	//Project 5
+	double pMin_val1 = 0.1;
+	
 	Node<Integer> pitch_node = new Node<Integer>(); //for unit test w/ Mary Had a Little Lamb
-	Tree<Integer> pst_pitch = new Tree(3);//of order 3
+	Tree<Integer> pst_pitch = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
 
 	// variables for the strings of words in proj 5 (this might be over kill, but I think each one needs to train on its own information)
 	Node<String> string_node1 = new Node<String>(); //for unit test w/ magic_words1
-	Tree<String> pst_string_node1 = new Tree(3);//of order 3
+	Tree<String> pst_string_node1 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
 	Node<String> string_node2 = new Node<String>(); //for unit test w/ magic_words2
-	Tree<String> pst_string_node2 = new Tree(3);//of order 3
+	Tree<String> pst_string_node2 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
 	Node<String> string_node3 = new Node<String>(); //for unit test w/ random_letters
-	Tree<String> pst_string_node3 = new Tree(3);//of order 3
+	Tree<String> pst_string_node3 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -141,7 +143,7 @@ public class HelloWorldMidiMain extends PApplet {
 	// Unit test methods for proj 5
 	public void unit_test_magicWords1_proj5() {
 		println("------------------------------");
-		println("abracadabra: PST L=3");
+		println("abracadabra: PST L=3   Pmin=0.1");
 		println("------------------------------");
 		pst_string_node1.print();
 		println(" ");
@@ -149,7 +151,7 @@ public class HelloWorldMidiMain extends PApplet {
 
 	public void unit_test_magicWords2_proj5() {
 		println("------------------------------");
-		println("acadaacbda: PST L=3");
+		println("acadaacbda: PST L=3  Pmin=0.1");
 		println("------------------------------");
 		pst_string_node2.print();
 		println(" ");
@@ -157,7 +159,7 @@ public class HelloWorldMidiMain extends PApplet {
 
 	public void unit_test_randomLetters_proj5() {
 		println("------------------------------");
-		println("abcccdaadcdaabcadad: PST L=3");
+		println("abcccdaadcdaabcadad: PST L=3  Pmin=0.1");
 		println("------------------------------");
 		pst_string_node3.print();
 		println(" ");
@@ -166,7 +168,7 @@ public class HelloWorldMidiMain extends PApplet {
 	
 	public void unit_test_MaryPST_proj5() {
 	  println("------------------------------");
-	  println("Mary Had a Little Lamb: PST L=3");
+	  println("Mary Had a Little Lamb: PST L=3  Pmin=0.1");
 	  println("------------------------------"); 
 	  pst_pitch.print(); 
 	  println(" ");

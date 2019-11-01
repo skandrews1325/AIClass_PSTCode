@@ -15,6 +15,8 @@ public class Node<T> {
 	ArrayList<T> tokenSequence = new ArrayList<T>(); //the sequence at this node
 	ArrayList<Node> children = new ArrayList<Node>(); // children - an array of the child nodes
 	
+	int count = 1; //the number of times the node appears in the input, init set to 1
+	
 	
 	//constructor
 	Node() {
@@ -53,7 +55,7 @@ public class Node<T> {
 		
 		if (tokenSequence.equals(node.getTokenSeq())) {
 			found = true;
-			//don't do anything else here for now
+			count += 1; //adding 1 to the count
 		}
 		else if(amIaSuffix(node) || (tokenSequence.size()==0)) { //(sidenote: the "==" here assigns the address!!)
 			
@@ -68,7 +70,6 @@ public class Node<T> {
 				children.add(node);
 				found = true;
 			}
-
 		}
 		
 		return found;
@@ -96,7 +97,34 @@ public class Node<T> {
 			//each time this is called from the next child, the number of spaces will increase by 1
 			children.get(j).print(numSpacesBefore + 1);
 		}
+	}
+	
+	boolean pMinElimination(int totalTokens, double pMin) {
 		
+		boolean shouldRemove = false;
+		
+		//1. find the number of times that the sequence could have occurred (dependent on tokenSequence.size())
+		totalTokens = tokenSequence.size();
+		float emp = (count / (float)(totalTokens - (tokenSequence.size() - 1))); //emp is the Empirical Prob (based on the equation in the lect sheet)
+		
+		
+		//2. shouldRemove = empirical prob of the token sequence < pMin (need to make sure the " " is NOT eliminated!!)
+		//boolean shouldRemove = emp < pMin && !(tokenSequence.size()==0); //(note to self in morning: use the tokenSequence.size()==0 to make an exception for the empty string!)
+		
+		for(int i = (children.size()-1); i >= 0; i--) {// since the code is going backwards in the nodes instead of forward
+			children.get(i).pMinElimination(totalTokens, pMin);//call pMinElimination on all the children nodes ((might need to change the int totalTokens and pMIn values here; this is currently a guess)
+			
+			shouldRemove = (emp < pMin && !(tokenSequence.size()==0));
+			
+			//if they return true, we should remove them
+			if (!shouldRemove) { //(note to self, might want to make this initially false, so the ! makes more sense given the name)
+				children.remove(i); //(this is just a guess, need to go back and iron out the parentheses!!) 
+			}
+		}
+		
+
+		//4. return (putting this here so eclipse can calm down)
+		return shouldRemove;
 	}
 	
 }

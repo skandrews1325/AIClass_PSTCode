@@ -17,10 +17,14 @@ public class Tree<T> extends Node { // since the Tree is tied in with node (migh
 
 	Node<T> root = new Node<T>(); // the root of the tree
 	int L; // the maximum token sequence length (order length)
+	
+	double pMin; //this is set in the constructor
+	int totalInputTokens; //the total number of input tokens
 
 	// constructor
-	Tree(int number_input) {// calling the input "number_input" to make more sense; & to allow myself to use L similar to the code
+	Tree(int number_input, double pMin_input) {
 		L = number_input;
+		pMin = pMin_input;
 	}
 
 	void train(ArrayList input) {// (she didn't set anything in here equal to each other)
@@ -43,6 +47,8 @@ public class Tree<T> extends Node { // since the Tree is tied in with node (migh
 				//System.out.println("items in theNewNode: " + theNewNode.getTokenSeq());
 			}
 		}
+		totalInputTokens += input.size();
+		//root.pMinElimination(totalInputTokens, pMin);
 
 	}
 
