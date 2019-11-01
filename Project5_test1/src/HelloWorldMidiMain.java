@@ -101,25 +101,12 @@ public class HelloWorldMidiMain extends PApplet {
 		ArrayList<String> testList2 = new ArrayList<String>(Arrays.asList(magic_words2));
 		ArrayList<String> testList3 = new ArrayList<String>(Arrays.asList(random_letters));
 		
-		//from trying to figure stuff out
-//		String[] str2 = {"a","b","r","a"};
-//		ArrayList<String> test2 = new ArrayList<String>(Arrays.asList(str2));
-//		
-//		Node node = new Node();
-//		Node node2 = new Node();
-//
-//		node.setTokenSeq(test1);
-//		node2.setTokenSeq(test2);
-//
-//		println("Is suffix? " + node2.amIaSuffix(node));
-
-
 		
 		pst_string_node1.train(testList1);
 		pst_string_node1.print(); //(for debugging purposes)
-//		pst_pitch.train(midiNotes.getPitchArray());
-//		pst_string_node2.train(testList2);
-//		pst_string_node3.train(testList3);
+		pst_pitch.train(midiNotes.getPitchArray());
+		pst_string_node2.train(testList2);
+		pst_string_node3.train(testList3);
 
 		player = new MelodyPlayer(this, 100.0f);
 
@@ -342,7 +329,7 @@ public class HelloWorldMidiMain extends PApplet {
 
 		}
 		
-		//each of the follow is a separate test for proj 5
+		//each of the following is a separate test for proj 5
 		if (key == 'd') {
 
 			unit_test_magicWords1_proj5();
