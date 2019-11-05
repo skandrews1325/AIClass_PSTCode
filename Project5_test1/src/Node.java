@@ -104,8 +104,8 @@ public class Node<T> {
 		boolean shouldRemove = false;
 		
 		//1. find the number of times that the sequence could have occurred (dependent on tokenSequence.size())
-		totalTokens = tokenSequence.size();
-		float emp = (count / (float)(totalTokens - (tokenSequence.size() - 1))); //emp is the Empirical Prob (based on the equation in the lect sheet)
+//		totalTokens = tokenSequence.size();
+		float emp = (count / (float)(totalTokens - (tokenSequence.size() - 1))); //Empirical Probability (based on the equation in the lect sheet)
 		
 		//for debugging, trying to figure out what's going wrong
 		System.out.println(" ");
@@ -115,19 +115,25 @@ public class Node<T> {
 		System.out.println("current token sequence (in pMinElim): " + tokenSequence);
 		System.out.println(" ");
 		//2. shouldRemove = empirical prob of the token sequence < pMin (need to make sure the " " is NOT eliminated!!)
-		//boolean shouldRemove = emp < pMin && !(tokenSequence.size()==0); //(note to self in morning: use the tokenSequence.size()==0 to make an exception for the empty string!)
+		shouldRemove = emp < pMin && (tokenSequence.size()!=0);
+		System.out.println("shouldRemove: "+ shouldRemove);
 		
-		for(int i = (children.size()-1); i >= 0; i--) {// since the code is going backwards in the nodes instead of forward
-			children.get(i).pMinElimination(totalTokens, pMin);//call pMinElimination on all the children nodes
-			
-			shouldRemove = (emp < pMin && !(tokenSequence.size()==0));
-			
-			//if they return true, we should remove them
-			if (!shouldRemove) { //(note to self, might want to make this initially false, so the ! makes more sense given the name)
-				children.remove(i); 
-				//System.out.println("current children left (after remove): " + children);
+		if(!shouldRemove) {
+		
+			for(int i = (children.size()-1); i >= 0; i--) {// since the code is going backwards in the nodes instead of forward
+				children.get(i).pMinElimination(totalTokens, pMin);//call pMinElimination on all the children nodes
+
+				boolean remove = children.get(i).pMinElimination(totalTokens, pMin);
+				
+				System.out.println("remove: "+ remove);
+
+				//if they return true, we should remove them
+				if (remove) { //(note to self, might want to rename this, so the ! makes more sense given the name)
+					children.remove(children.get(i)); 
+					//System.out.println("current children left (after remove): " + children);
+				}
+
 			}
-			
 		}
 		
 		System.out.println("modified array: " + tokenSequence);
