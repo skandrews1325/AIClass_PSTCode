@@ -107,18 +107,24 @@ public class Node<T> {
 		totalTokens = tokenSequence.size();
 		float emp = (count / (float)(totalTokens - (tokenSequence.size() - 1))); //emp is the Empirical Prob (based on the equation in the lect sheet)
 		
+		//for debugging, trying to figure out what's going wrong
+		System.out.println(" ");
+		System.out.println("totalTokens size: " + totalTokens);
+		System.out.println("count size: " + count);
+		System.out.println("emp value: " + emp);
 		System.out.println("current token sequence (in pMinElim): " + tokenSequence);
+		System.out.println(" ");
 		//2. shouldRemove = empirical prob of the token sequence < pMin (need to make sure the " " is NOT eliminated!!)
 		//boolean shouldRemove = emp < pMin && !(tokenSequence.size()==0); //(note to self in morning: use the tokenSequence.size()==0 to make an exception for the empty string!)
 		
 		for(int i = (children.size()-1); i >= 0; i--) {// since the code is going backwards in the nodes instead of forward
-			children.get(i).pMinElimination(totalTokens, pMin);//call pMinElimination on all the children nodes ((might need to change the int totalTokens and pMIn values here; this is currently a guess)
+			children.get(i).pMinElimination(totalTokens, pMin);//call pMinElimination on all the children nodes
 			
 			shouldRemove = (emp < pMin && !(tokenSequence.size()==0));
 			
 			//if they return true, we should remove them
 			if (!shouldRemove) { //(note to self, might want to make this initially false, so the ! makes more sense given the name)
-				children.remove(i); //(this is just a guess, need to go back and iron out the parentheses!!) 
+				children.remove(i); 
 				//System.out.println("current children left (after remove): " + children);
 			}
 			
