@@ -44,17 +44,24 @@ public class HelloWorldMidiMain extends PApplet {
 
 	//Project 5
 	double pMin_val1 = 0.1;
+	double pMin_val2 = 0.15;
 	
 	Node<Integer> pitch_node = new Node<Integer>(); //for unit test w/ Mary Had a Little Lamb
-	Tree<Integer> pst_pitch = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<Integer> pst_pitch_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<Integer> pst_pitch_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.1
 
 	// variables for the strings of words in proj 5 (this might be over kill, but I think each one needs to train on its own information)
 	Node<String> string_node1 = new Node<String>(); //for unit test w/ magic_words1
-	Tree<String> pst_string_node1 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<String> pst_string_node1_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<String> pst_string_node1_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.15
+	
 	Node<String> string_node2 = new Node<String>(); //for unit test w/ magic_words2
-	Tree<String> pst_string_node2 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<String> pst_string_node2_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<String> pst_string_node2_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.15
+	
 	Node<String> string_node3 = new Node<String>(); //for unit test w/ random_letters
-	Tree<String> pst_string_node3 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<String> pst_string_node3_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<String> pst_string_node3_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.15
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -64,7 +71,7 @@ public class HelloWorldMidiMain extends PApplet {
 
 	// setting the window size
 	public void settings() {
-		size(900, 500);
+		size(1000, 500);
 
 	}
 
@@ -102,11 +109,15 @@ public class HelloWorldMidiMain extends PApplet {
 		ArrayList<String> testList3 = new ArrayList<String>(Arrays.asList(random_letters));
 		
 		
-		pst_string_node1.train(testList1);
-		pst_string_node1.print(); //(for debugging purposes)
-//		pst_pitch.train(midiNotes.getPitchArray());
-//		pst_string_node2.train(testList2);
-//		pst_string_node3.train(testList3);
+		pst_string_node1_01.train(testList1);
+		pst_string_node1_15.train(testList1);
+		pst_string_node1_01.print(); //(for debugging purposes)
+		pst_pitch_01.train(midiNotes.getPitchArray());
+		pst_pitch_15.train(midiNotes.getPitchArray());
+		pst_string_node2_01.train(testList2);
+		pst_string_node2_15.train(testList2);
+		pst_string_node3_01.train(testList3);
+		pst_string_node3_15.train(testList3);
 
 		player = new MelodyPlayer(this, 100.0f);
 
@@ -124,43 +135,76 @@ public class HelloWorldMidiMain extends PApplet {
 		text("Unit test 3: press '3' or 'c' to print out the probabilities of 10,000 generated melodies of length 20", 50, 300);
 		text("'3' for Project 1, 'c' for Project 2", 60, 330);
 
-		text("Project 5 PST: press 'd' for 'abracadabra', 'e' for 'acadaacbda', 'f' for 'abcccdaadcdaabcadad', and 'g' for the PST of Mary Had a Little Lamb", 50, 400);
+		text("Project 5 PST: (For Pmin = 0.1) press 'd' for 'abracadabra', 'e' for 'acadaacbda', 'f' for 'abcccdaadcdaabcadad', and 'g' for the PST of Mary Had a Little Lamb", 50, 380);
+		text("(For Pmin = 0.15) press 'h' for 'abracadabra', 'i' for 'acadaacbda', 'j' for 'abcccdaadcdaabcadad', and 'k' for the PST of Mary Had a Little Lamb", 130, 410);
 	}
 
 	// Unit test methods for proj 5
-	public void unit_test_magicWords1_proj5() {
-		println("------------------------------");
+	public void unit_test_magicWords1_proj5_01() {
+		println("--------------------------------");
 		println("abracadabra: PST L=3   Pmin=0.1");
-		println("------------------------------");
-		pst_string_node1.print();
+		println("--------------------------------");
+		pst_string_node1_01.print();
+		println(" ");
+	}
+	
+	public void unit_test_magicWords1_proj5_015() {
+		println("--------------------------------");
+		println("abracadabra: PST L=3   Pmin=0.15");
+		println("--------------------------------");
+		pst_string_node1_15.print();
 		println(" ");
 	}
 
-	public void unit_test_magicWords2_proj5() {
-		println("------------------------------");
+	public void unit_test_magicWords2_proj5_01() {
+		println("-------------------------------");
 		println("acadaacbda: PST L=3  Pmin=0.1");
-		println("------------------------------");
-		pst_string_node2.print();
+		println("-------------------------------");
+		pst_string_node2_01.print();
+		println(" ");
+	}
+	
+	public void unit_test_magicWords2_proj5_015() {
+		println("-------------------------------");
+		println("acadaacbda: PST L=3  Pmin=0.15");
+		println("-------------------------------");
+		pst_string_node2_15.print();
 		println(" ");
 	}
 
-	public void unit_test_randomLetters_proj5() {
-		println("------------------------------");
+	public void unit_test_randomLetters_proj5_01() {
+		println("----------------------------------------");
 		println("abcccdaadcdaabcadad: PST L=3  Pmin=0.1");
-		println("------------------------------");
-		pst_string_node3.print();
+		println("----------------------------------------");
+		pst_string_node3_01.print();
+		println(" ");
+	}
+	
+	public void unit_test_randomLetters_proj5_015() {
+		println("----------------------------------------");
+		println("abcccdaadcdaabcadad: PST L=3  Pmin=0.15");
+		println("----------------------------------------");
+		pst_string_node3_15.print();
 		println(" ");
 	}
 
 	
-	public void unit_test_MaryPST_proj5() {
-	  println("------------------------------");
-	  println("Mary Had a Little Lamb: PST L=3  Pmin=0.1");
-	  println("------------------------------"); 
-	  pst_pitch.print(); 
-	  println(" ");
+	public void unit_test_MaryPST_proj5_01() {
+		println("-------------------------------------------");
+		println("Mary Had a Little Lamb: PST L=3  Pmin=0.1");
+		println("-------------------------------------------"); 
+		pst_pitch_01.print(); 
+		println(" ");
 	}
-	 
+
+	public void unit_test_MaryPST_proj5_015() {
+		println("-------------------------------------------");
+		println("Mary Had a Little Lamb: PST L=3  Pmin=0.15");
+		println("-------------------------------------------"); 
+		pst_pitch_15.print(); 
+		println(" ");
+	}
+
 
 
 	// Unit test 1 methods
@@ -332,22 +376,42 @@ public class HelloWorldMidiMain extends PApplet {
 		//each of the following is a separate test for proj 5
 		if (key == 'd') {
 
-			unit_test_magicWords1_proj5();
+			unit_test_magicWords1_proj5_01();
 
 		}
 		if (key == 'e') {
 
-			unit_test_magicWords2_proj5();
+			unit_test_magicWords2_proj5_01();
 
 		}
 		if (key == 'f') {
 
-			unit_test_randomLetters_proj5();
+			unit_test_randomLetters_proj5_01();
 
 		}
 		if (key == 'g') {
 
-			unit_test_MaryPST_proj5();
+			unit_test_MaryPST_proj5_01();
+
+		}
+		if (key == 'h') {
+
+			unit_test_magicWords1_proj5_015();
+
+		}
+		if (key == 'i') {
+
+			unit_test_magicWords2_proj5_015();
+
+		}
+		if (key == 'j') {
+
+			unit_test_randomLetters_proj5_015();
+
+		}
+		if (key == 'k') {
+
+			unit_test_MaryPST_proj5_015();
 
 		}
 	}
