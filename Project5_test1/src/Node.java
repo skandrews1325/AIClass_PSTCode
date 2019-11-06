@@ -37,14 +37,9 @@ public class Node<T> {
 		//think it would use .equals, b/c it addresses the content of the objects
 		int start_char = node.getTokenSeq().size() - tokenSequence.size(); //the starting element for subList
 		int last_char = node.getTokenSeq().size(); //the end/last element for subList
-		
-//		System.out.println( "node.getTokenSeq().size() " + tokenSequence.size());
-//		System.out.println( "tokenSequence.size(): " + node.getTokenSeq().size());
 
 		ArrayList<T> token = node.getTokenSeq();
 		ArrayList<T> testSeq = new ArrayList<T>(token.subList(start_char, last_char));
-//		System.out.println("testSeq: " + testSeq);
-//		System.out.println("our node seq: " + tokenSequence)
 		
 		return tokenSequence.equals(testSeq);
 		
@@ -104,19 +99,10 @@ public class Node<T> {
 		boolean shouldRemove = false;
 		
 		//1. find the number of times that the sequence could have occurred (dependent on tokenSequence.size())
-//		totalTokens = tokenSequence.size();
 		float emp = (count / (float)(totalTokens - (tokenSequence.size() - 1))); //Empirical Probability (based on the equation in the lect sheet)
 		
-		//for debugging, trying to figure out what's going wrong
-		System.out.println(" ");
-		System.out.println("totalTokens size: " + totalTokens);
-		System.out.println("count size: " + count);
-		System.out.println("emp value: " + emp);
-		System.out.println("current token sequence (in pMinElim): " + tokenSequence);
-		System.out.println(" ");
 		//2. shouldRemove = empirical prob of the token sequence < pMin (need to make sure the " " is NOT eliminated!!)
 		shouldRemove = emp < pMin && (tokenSequence.size()!=0);
-		System.out.println("shouldRemove: "+ shouldRemove);
 		
 		if(!shouldRemove) {
 		
@@ -125,21 +111,14 @@ public class Node<T> {
 
 				boolean remove = children.get(i).pMinElimination(totalTokens, pMin);
 				
-				System.out.println("remove: "+ remove);
-
 				//if they return true, we should remove them
-				if (remove) { //(note to self, might want to rename this, so the ! makes more sense given the name)
+				if (remove) { //(the children are telling the parent to do the removing)
 					children.remove(children.get(i)); 
-					//System.out.println("current children left (after remove): " + children);
 				}
-
 			}
 		}
-		
-		System.out.println("modified array: " + tokenSequence);
-		
-
-		//4. return (putting this here so eclipse can calm down)
+	
+		//4. return
 		return shouldRemove;
 	}
 	

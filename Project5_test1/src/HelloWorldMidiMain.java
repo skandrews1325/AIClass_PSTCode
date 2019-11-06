@@ -39,29 +39,29 @@ public class HelloWorldMidiMain extends PApplet {
 	MarkovGenerator<Double> mar_rhythm = new MarkovGenerator<Double>();
 
 	// Project 3
-	MarkovOrderNGenerator<Integer> marN_pitch = new MarkovOrderNGenerator(3);//of order N (for testing)
-	MarkovOrderNGenerator<Double> marN_rhythm = new MarkovOrderNGenerator(3);
+	MarkovOrderNGenerator<Integer> marN_pitch = new MarkovOrderNGenerator<Integer>(3);//of order N (for testing)
+	MarkovOrderNGenerator<Double> marN_rhythm = new MarkovOrderNGenerator<Double>(3);
 
-	//Project 5
+	// Project 5
 	double pMin_val1 = 0.1;
 	double pMin_val2 = 0.15;
 	
 	Node<Integer> pitch_node = new Node<Integer>(); //for unit test w/ Mary Had a Little Lamb
-	Tree<Integer> pst_pitch_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
-	Tree<Integer> pst_pitch_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.1
+	Tree<Integer> pst_pitch_01 = new Tree<Integer>(3, pMin_val1);//of order 3, Pmin = 0.1
+	Tree<Integer> pst_pitch_15 = new Tree<Integer>(3, pMin_val2);//of order 3, Pmin = 0.1
 
 	// variables for the strings of words in proj 5 (this might be over kill, but I think each one needs to train on its own information)
-	Node<String> string_node1 = new Node<String>(); //for unit test w/ magic_words1
-	Tree<String> pst_string_node1_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
-	Tree<String> pst_string_node1_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.15
-	
-	Node<String> string_node2 = new Node<String>(); //for unit test w/ magic_words2
-	Tree<String> pst_string_node2_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
-	Tree<String> pst_string_node2_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.15
-	
-	Node<String> string_node3 = new Node<String>(); //for unit test w/ random_letters
-	Tree<String> pst_string_node3_01 = new Tree(3, pMin_val1);//of order 3, Pmin = 0.1
-	Tree<String> pst_string_node3_15 = new Tree(3, pMin_val2);//of order 3, Pmin = 0.15
+	Node<String> string_node1 = new Node<String>(); // for unit test w/ magic_words1
+	Tree<String> pst_string_node1_01 = new Tree<String>(3, pMin_val1);// of order 3, Pmin = 0.1
+	Tree<String> pst_string_node1_15 = new Tree<String>(3, pMin_val2);// of order 3, Pmin = 0.15
+
+	Node<String> string_node2 = new Node<String>(); // for unit test w/ magic_words2
+	Tree<String> pst_string_node2_01 = new Tree<String>(3, pMin_val1);// of order 3, Pmin = 0.1
+	Tree<String> pst_string_node2_15 = new Tree<String>(3, pMin_val2);// of order 3, Pmin = 0.15
+
+	Node<String> string_node3 = new Node<String>(); // for unit test w/ random_letters
+	Tree<String> pst_string_node3_01 = new Tree<String>(3, pMin_val1);// of order 3, Pmin = 0.1
+	Tree<String> pst_string_node3_15 = new Tree<String>(3, pMin_val2);// of order 3, Pmin = 0.15
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -71,7 +71,7 @@ public class HelloWorldMidiMain extends PApplet {
 
 	// setting the window size
 	public void settings() {
-		size(1000, 500);
+		size(1000, 450);
 
 	}
 
@@ -100,25 +100,28 @@ public class HelloWorldMidiMain extends PApplet {
 
 		// proj 5
 
-		//strings of words for the unit tests of proj5
-		String[] magic_words1 = {"a","b","r","a","c","a","d","a","b","r","a"};
-		String[] magic_words2 = {"a","c","a","d","a","a","c","b","d","a"};
-		String[] random_letters = {"a","b","c","c","c","d","a","a","d","c","d","a","a","b","c","a","d","a","d"};
+		// strings of words for the unit tests of proj5
+		String[] magic_words1 = { "a", "b", "r", "a", "c", "a", "d", "a", "b", "r", "a" };
+		String[] magic_words2 = { "a", "c", "a", "d", "a", "a", "c", "b", "d", "a" };
+		String[] random_letters = { "a", "b", "c", "c", "c", "d", "a", "a", "d", "c", "d", "a", "a", "b", "c", "a", "d", "a", "d" };
 		ArrayList<String> testList1 = new ArrayList<String>(Arrays.asList(magic_words1));
 		ArrayList<String> testList2 = new ArrayList<String>(Arrays.asList(magic_words2));
 		ArrayList<String> testList3 = new ArrayList<String>(Arrays.asList(random_letters));
-		
-		
+
+		// PST strings for proj5
 		pst_string_node1_01.train(testList1);
 		pst_string_node1_15.train(testList1);
-		pst_string_node1_01.print(); //(for debugging purposes)
-		pst_pitch_01.train(midiNotes.getPitchArray());
-		pst_pitch_15.train(midiNotes.getPitchArray());
+
 		pst_string_node2_01.train(testList2);
 		pst_string_node2_15.train(testList2);
+
 		pst_string_node3_01.train(testList3);
 		pst_string_node3_15.train(testList3);
 
+		pst_pitch_01.train(midiNotes.getPitchArray());
+		pst_pitch_15.train(midiNotes.getPitchArray());
+
+		
 		player = new MelodyPlayer(this, 100.0f);
 
 		player.setup();
@@ -128,15 +131,15 @@ public class HelloWorldMidiMain extends PApplet {
 
 	public void draw() {
 		fill(0, 0, 0);
-		text("Unit test 1: press '1', 'a' or 'n' to print out the probabilities of each note detected in the melody to the console", 50, 100);
-		text("'1' for Project 1, 'a' for Project 2, 'n' for Project 3", 60, 130);
-		text("Unit tes 2: press '2' or 'b' to print out the generations of the pitch and rhythm of ONE melody to the console", 50, 200);
-		text("'2' for Project 1, 'b' for Project 2", 60, 230);
-		text("Unit test 3: press '3' or 'c' to print out the probabilities of 10,000 generated melodies of length 20", 50, 300);
-		text("'3' for Project 1, 'c' for Project 2", 60, 330);
+		text("Unit test 1: press '1', 'a' or 'n' to print out the probabilities of each note detected in the melody to the console", 50, 70);
+		text("'1' for Project 1, 'a' for Project 2, 'n' for Project 3", 60, 100);
+		text("Unit tes 2: press '2' or 'b' to print out the generations of the pitch and rhythm of ONE melody to the console", 50, 160);
+		text("'2' for Project 1, 'b' for Project 2", 60, 190);
+		text("Unit test 3: press '3' or 'c' to print out the probabilities of 10,000 generated melodies of length 20", 50, 250);
+		text("'3' for Project 1, 'c' for Project 2", 60, 280);
 
-		text("Project 5 PST: (For Pmin = 0.1) press 'd' for 'abracadabra', 'e' for 'acadaacbda', 'f' for 'abcccdaadcdaabcadad', and 'g' for the PST of Mary Had a Little Lamb", 50, 380);
-		text("(For Pmin = 0.15) press 'h' for 'abracadabra', 'i' for 'acadaacbda', 'j' for 'abcccdaadcdaabcadad', and 'k' for the PST of Mary Had a Little Lamb", 130, 410);
+		text("Project 5 PST: (For Pmin = 0.1) press 'd' for 'abracadabra', 'e' for 'acadaacbda', 'f' for 'abcccdaadcdaabcadad', and 'g' for the PST of Mary Had a Little Lamb", 50, 340);
+		text("(For Pmin = 0.15) press 'h' for 'abracadabra', 'i' for 'acadaacbda', 'j' for 'abcccdaadcdaabcadad', and 'k' for the PST of Mary Had a Little Lamb", 130, 370);
 	}
 
 	// Unit test methods for proj 5
@@ -187,7 +190,6 @@ public class HelloWorldMidiMain extends PApplet {
 		pst_string_node3_15.print();
 		println(" ");
 	}
-
 	
 	public void unit_test_MaryPST_proj5_01() {
 		println("-------------------------------------------");
@@ -372,8 +374,9 @@ public class HelloWorldMidiMain extends PApplet {
 			unit_test3_proj2();
 
 		}
+
+		// each of the following is a separate test for proj 5
 		
-		//each of the following is a separate test for proj 5
 		if (key == 'd') {
 
 			unit_test_magicWords1_proj5_01();

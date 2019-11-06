@@ -13,7 +13,7 @@
 
 import java.util.ArrayList; //to import the ArrayList class
 
-public class Tree<T> extends Node { // since the Tree is tied in with node (might need to change type to string)
+public class Tree<T> extends Node { // since the Tree is tied in with node
 
 	Node<T> root = new Node<T>(); // the root of the tree
 	int L; // the maximum token sequence length (order length)
@@ -35,16 +35,12 @@ public class Tree<T> extends Node { // since the Tree is tied in with node (migh
 				
 				ArrayList<T> curSequence = new ArrayList<T>(input.subList(start_elem, last_elem));
 				
-				System.out.println("items in curSequence: " + curSequence);
-				
 				// create a new node w/ the current sequence, theNewNode
 				Node<T> theNewNode = new Node<T>();
 				
 				theNewNode.setTokenSeq(curSequence);
 
 				root.addNode(theNewNode);
-				
-				//System.out.println("items in theNewNode: " + theNewNode.getTokenSeq());
 			}
 		}
 		totalInputTokens += input.size();
